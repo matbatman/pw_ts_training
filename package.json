@@ -1,0 +1,33 @@
+{
+  "name": "pw_ts_training",
+  "version": "1.0.0",
+  "main": "index.js",
+"scripts": {
+  "test": "playwright test",
+  "test:ui": "playwright test --ui",
+  "test:api": "playwright test tests/api",
+  "test:debug": "playwright test --grep @api",
+  "codegen": "playwright codegen"
+},
+  "repository":  {
+    "type": "git",
+    "url": "git+https://github.com/matbatman/pw_ts_training.git"
+  },
+  "keywords": [],
+  "author": "matbat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/matbatman/pw_ts_training/issues"
+  },
+  "homepage": "https://github.com/matbatman/pw_ts_training#readme",
+  "description": "",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "@types/node": "^25.0.9",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
+  }
+}
