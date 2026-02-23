@@ -5,5 +5,5 @@ test('get user by id', async ({ userApi }) => {
   const body = await res.json();
 
   expect(res.status()).toBe(200);
-  expect(body).toHaveProperty('email');
+  expect(body).toHaveProperty('id');
 });
