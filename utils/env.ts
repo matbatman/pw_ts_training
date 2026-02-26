@@ -20,4 +20,5 @@ dotenv.config();
  */
 export const env = {
   userApi: process.env.USER_API_URL!,
+  webBaseUrl: process.env.WEB_BASE_URL!,
 };
