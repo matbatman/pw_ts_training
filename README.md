@@ -47,9 +47,9 @@ pw_ts_training/
 │   │   ├── loginPage.ts       # Страница логина (локаторы + действия)
 │   │   └── dashboardPage.ts   # Страница дашборда
 │   ├── fixtures/
-│   │   └── webFixtures.ts     # Фикстуры loginPage и dashboardPage (DI для POM)
+│   │   └── auth.ts     # Фикстура для авторизации
 │   └── tests/
-│       └── login.spec.ts      # Пример UI‑теста
+│       └── web.spec.ts      # Пример UI‑теста
 │
 ├── types/
 │   └── fixtures.d.ts          # Расширение типов Playwright (userApi, loginPage, dashboardPage)

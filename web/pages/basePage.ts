@@ -1,55 +1,41 @@
-import { Page, Locator } from '@playwright/test';
+import { Page } from "@playwright/test";
+import { env } from "../../utils/env";
 
 /**
- * Базовый класс для всех UI‑страниц.
+ * Базовый класс для всех Page Object.
  *
- * Его задача — дать единый фундамент для всех Page Object:
- *   - хранить ссылку на Playwright Page
- *   - знать базовый URL приложения
- *   - предоставлять общие методы (open, locator, ожидания и т.п.)
+ * Зачем он нужен:
+ *   - хранит ссылку на Playwright Page
+ *   - содержит общие методы, которые нужны на всех страницах
+ *   - позволяет избежать дублирования кода
+ *   - делает архитектуру чище и масштабируемее
  *
- * Такой подход делает архитектуру единообразной:
- *   - API‑клиенты используют baseUrl → BaseClient
- *   - UI‑страницы используют baseUrl → BasePage
- *
- * Это позволяет тестам и страницам не думать о том,
- * откуда берётся URL — этим управляют фикстуры.
+ * Любая страница (LoginPage, InventoryPage и т.д.)
+ * наследует BasePage и автоматически получает доступ к:
+ *   this.page — Playwright Page
+ *   this.goto() — переход на URL с учётом базового адреса
  */
 export class BasePage {
-  constructor(
-    /** Экземпляр Playwright Page — браузерная вкладка */
-    protected page: Page,
-
-    /** Базовый URL приложения, например https://my-app.com */
-    protected baseUrl: string
-  ) {}
+  constructor(public page: Page) {}
 
   /**
-   * Открывает страницу по относительному пути.
+   * Универсальный метод перехода на страницу.
    *
-   * Пример:
-   *   await open('/login')
-   *   → откроет https://my-app.com/login
+   * Вместо того чтобы в каждом Page Object писать:
+   *   page.goto("https://www.saucedemo.com/inventory.html")
    *
-   * Это аналогично тому, как BaseClient делает запросы:
-   *   this.request.get(this.base + path)
+   * мы пишем:
+   *   this.goto("inventory.html")
+   *
+   * Метод сам подставляет базовый URL из env:
+   *   env.webBaseUrl + path
+   *
+   * Это:
+   *   - убирает хардкод URL‑ов
+   *   - позволяет легко менять окружения (dev/stage/prod)
+   *   - делает тесты чище и стабильнее
    */
-  async open(path: string) {
-    await this.page.goto(this.baseUrl + path);
-  }
-
-  /**
-   * Упрощённый доступ к локаторам.
-   *
-   * Вместо:
-   *   this.page.locator('#username')
-   *
-   * Можно писать:
-   *   this.locator('#username')
-   *
-   * Это делает код страниц чище и короче.
-   */
-  locator(selector: string): Locator {
-    return this.page.locator(selector);
+  async goto(path: string = "") {
+    await this.page.goto(env.webBaseUrl + path);
   }
 }

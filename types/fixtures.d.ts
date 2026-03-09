@@ -1,6 +1,6 @@
 import { UserClient } from '../api/clients/userClient';
-import { LoginPage } from '../web/pages/loginPage';
-import { DashboardPage } from '../web/pages/dashboardPage';
+import { InventoryPage } from "../web/pages/inventoryPage";
+import { Page } from "@playwright/test";
 
 /**
  * Расширение типов Playwright через module augmentation.
@@ -16,7 +16,6 @@ import { DashboardPage } from '../web/pages/dashboardPage';
 declare module '@playwright/test' {
   interface PlaywrightTestArgs {
     userApi: UserClient;
-    loginPage: LoginPage; 
-    dashboardPage: DashboardPage;
+    app: InventoryPage;
   }
 }
