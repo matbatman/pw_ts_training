@@ -19,6 +19,6 @@ dotenv.config();
  * что лучше, чем тихая ошибка в тестах.
  */
 export const env = {
-  userApi: process.env.USER_API_URL!,
-  webBaseUrl: process.env.WEB_BASE_URL!,
+  userApi: process.env.USER_API_URL || (() => { throw new Error('USER_API_URL is required'); })(),
+  webBaseUrl: process.env.WEB_BASE_URL || (() => { throw new Error('WEB_BASE_URL is required'); })(),
 };
