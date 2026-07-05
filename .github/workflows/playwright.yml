@@ -2,6 +2,12 @@ name: Playwright Tests
 
 on:
   workflow_dispatch:
+    inputs:
+      WEB_BASE_URL:
+        description: "Введите URL для WEB_BASE_URL"
+        required: true
+        default: "https://www.saucedemo.com/"
+
   push:
     branches: [ main ]
   pull_request:
@@ -14,7 +20,7 @@ jobs:
 
     env:
       USER_API_URL: ${{ vars.USER_API_URL }}
-      WEB_BASE_URL: ${{ vars.WEB_BASE_URL }}
+      WEB_BASE_URL: ${{ github.event.inputs.WEB_BASE_URL }}
 
     steps:
       - name: Checkout repository
